@@ -16,14 +16,23 @@
             <div class="form-group">
                 <label for = "name">Name</label>
                 <input type="text" name = "name" class= "form-control">
+                @error('name')
+                <span class = "text-danger">{{$message}}</span>
+                @enderror
             </div>
             <div class="form-group">
                 <label for = "author">Auther Name</label>
                 <input type="text" name = "auther_name" class= "form-control">
+                @error('auther_name')
+                <span class = "text-danger">{{$message}}</span>
+                @enderror
             </div>
             <div class="form-group">
                 <label for = "price">Price</label>
                 <input type="number" name = "price" class= "form-control">
+                @error('price')
+                <span class = "text-danger">{{$message}}</span>
+                @enderror
             </div>
             <div class="form-group">
                 <label for = "image">Image</label>
@@ -42,6 +51,9 @@
                 };
                 </script>
                 <!-- <img id = "bookimage" alt="book image"/> -->
+                @error('image')
+                <span class = "text-danger">{{$message}}</span>
+                @enderror
             </div>
             <button type = "submit" class = "btn btn-primary">Submit</button>
         </form>

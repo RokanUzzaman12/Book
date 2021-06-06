@@ -42,6 +42,12 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'=>'required',
+            'auther_name'=>'required',
+            'price'=>'required',
+            'image'=>'required'
+        ]);
         $name = $request->name;
         $author_name = $request->auther_name;
         $price= $request->price;
