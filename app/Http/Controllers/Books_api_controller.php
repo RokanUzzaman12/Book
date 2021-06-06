@@ -14,9 +14,9 @@ class Books_api_controller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    { 
         $books = Book::paginate(10);
-        return PostResource::collection($post);
+        return PostResource::collection($books);
     }
 
     /**
@@ -59,21 +59,21 @@ class Books_api_controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $book = new Book::find($id);
-        $book = new Book();
-        $book->name = $request->name;
-        $book->auther_name = $request->auther_name;
-        $book->price = $request->price;
-        $image = $request->file('image');
-        $imageName = time().'.'.$image->extension();
-        $request->image->move(public_path('images'), $imageName);
-        $book->image = $imageName;
-        if($book->save()){
-            return new PostResource($book);
-        }
-    }
+    // public function update(Request $request, $id)
+    // {
+    //     $book = new Book::findOrF($id);
+    //     $book = new Book();
+    //     $book->name = $request->name;
+    //     $book->auther_name = $request->auther_name;
+    //     $book->price = $request->price;
+    //     $image = $request->file('image');
+    //     $imageName = time().'.'.$image->extension();
+    //     $request->image->move(public_path('images'), $imageName);
+    //     $book->image = $imageName;
+    //     if($book->save()){
+    //         return new PostResource($book);
+    //     }
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -84,8 +84,8 @@ class Books_api_controller extends Controller
     public function destroy($id)
     {
         $book = Book::find($id);
-        if($post->delete()){
-            return new PostResource($post);
+        if($book->delete()){
+            return new PostResource($book);
         }
     }
 }

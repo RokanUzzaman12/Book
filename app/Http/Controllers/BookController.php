@@ -46,7 +46,7 @@ class BookController extends Controller
             'name'=>'required',
             'auther_name'=>'required',
             'price'=>'required',
-            'image'=>'required'
+            'image'=>'required',
         ]);
         $name = $request->name;
         $author_name = $request->auther_name;

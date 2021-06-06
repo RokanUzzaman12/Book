@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/books',[Books_api_controller::class, 'index']);
-Route::post('/books',[Books_api_controller::class, 'create']);
+Route::post('/books',[Books_api_controller::class, 'store']);
 Route::get('/books/{id}',[Books_api_controller::class, 'show']);
 Route::put('/books/{id}',[Books_api_controller::class, 'update']);
 Route::delete('/books/{id}',[Books_api_controller::class, 'destroy']);
