@@ -59,21 +59,20 @@ class Books_api_controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function update(Request $request, $id)
-    // {
-    //     $book = new Book::findOrF($id);
-    //     $book = new Book();
-    //     $book->name = $request->name;
-    //     $book->auther_name = $request->auther_name;
-    //     $book->price = $request->price;
-    //     $image = $request->file('image');
-    //     $imageName = time().'.'.$image->extension();
-    //     $request->image->move(public_path('images'), $imageName);
-    //     $book->image = $imageName;
-    //     if($book->save()){
-    //         return new PostResource($book);
-    //     }
-    // }
+    public function update(Request $request, $id)
+    {
+        $book = Book::find($id);
+        $book->name = $request->name;
+        $book->auther_name = $request->auther_name;
+        $book->price = $request->price;
+        $image = $request->file('image');
+        $imageName = time().'.'.$image->extension();
+        $request->image->move(public_path('images'), $imageName);
+        $book->image = $imageName;
+        if($book->save()){
+            return new PostResource($book);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
