@@ -65,10 +65,13 @@ class Books_api_controller extends Controller
         $book->name = $request->name;
         $book->auther_name = $request->auther_name;
         $book->price = $request->price;
-        $image = $request->file('image');
-        $imageName = time().'.'.$image->extension();
-        $request->image->move(public_path('images'), $imageName);
-        $book->image = $imageName;
+        if ($request->hasFile('photo')) {
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $book->image = $imageName;
+        }
+
         if($book->save()){
             return new PostResource($book);
         }

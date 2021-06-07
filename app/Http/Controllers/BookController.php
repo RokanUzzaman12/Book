@@ -97,18 +97,22 @@ class BookController extends Controller
      */
     public function updateBooks(Request $request)
     {
+        $books = Book::find($request->id);
         $name = $request->name;
         $author_name = $request->auther_name;
         $price= $request->price;
-        $image = $request->file('image');
-        $imageName = time().'.'.$image->extension();
-        $request->image->move(public_path('images'), $imageName);
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $books->image = $imageName;
+        }
 
-        $books = Book::find($request->id);
+
+        
         $books->name = $name;
         $books->auther_name = $author_name;
         $books->price = $price;
-        $books->image = $imageName;
         $books->save();
         return back()->with('edit_books','Books edited');
     }
