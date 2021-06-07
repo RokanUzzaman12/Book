@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Books_api_controller;
+use App\Http\Controllers\Books\Books_api_controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +15,16 @@ use App\Http\Controllers\Books_api_controller;
 |
 */
 
-Route::get('/books',[Books_api_controller::class, 'index']);
+// Route::get('/mybooks',[Books_api_controller::class, 'index']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/books',[Books_api_controller::class, 'index']);
-Route::post('/books',[Books_api_controller::class, 'store']);
-Route::get('/books/{id}',[Books_api_controller::class, 'show']);
-Route::put('/books/{id}',[Books_api_controller::class, 'update']);
-Route::delete('/books/{id}',[Books_api_controller::class, 'destroy']);
+Route::resource('book',Books_api_controller::class);
+
+// Route::get('/books',[Books_api_controller::class, 'index']);
+// Route::post('/books',[Books_api_controller::class, 'store']);
+// Route::get('/books/{id}',[Books_api_controller::class, 'show']);
+// Route::put('/books/{id}',[Books_api_controller::class, 'update']);
+// Route::delete('/books/{id}',[Books_api_controller::class, 'destroy']);

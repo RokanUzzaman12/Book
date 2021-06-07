@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Books;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Book;
+use App\Models\Books\Book;
+use App\Http\Requests\CreateRequest;
 
 class BookController extends Controller
 {
-    // for the input field page
 
-    public function adding_page(){
-        return view("add_new");
-    }
  
     /**
      * Display a listing of the resource.
@@ -21,7 +19,7 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view("all_books",compact('books'));
+        return view("admin.all_books",compact('books'));
     }
 
     /**
@@ -31,7 +29,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.add_new");
     }
 
     /**
@@ -40,25 +38,19 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $request->validate([
-            'name'=>'required',
-            'auther_name'=>'required',
-            'price'=>'required',
-            'image'=>'required',
-        ]);
-        $name = $request->name;
-        $author_name = $request->auther_name;
-        $price= $request->price;
-        $image = $request->file('image');
-        $imageName = time().'.'.$image->extension();
-        $request->image->move(public_path('images'), $imageName);
+       if ($request->hasFile('image')){
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->extension();
+            $request->image->move(public_path('images'), $imageName);
+        }
+
 
         $books = new Book();
-        $books->name = $name;
-        $books->auther_name = $author_name;
-        $books->price = $price;
+        $books->name = $request->name;
+        $books->auther_name = $request->auther_name;
+        $books->price = $request->price;
         $books->image = $imageName;
         $books->save();
         return back()->with('new_books','Books added');
@@ -73,7 +65,7 @@ class BookController extends Controller
     public function show($id)
     {
         $book = Book::find($id);
-        return view('details',compact('book'));
+        return view('admin.details',compact('book'));
     }
 
     /**
@@ -85,7 +77,7 @@ class BookController extends Controller
     public function edit($id)
     {
         $books = Book::find($id);
-        return view("edit_book",compact('books'));
+        return view("admin.edit_book",compact('books'));
     }
 
     /**
@@ -95,7 +87,7 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateBooks(Request $request)
+    public function update(Request $request)
     {
         $books = Book::find($request->id);
         $name = $request->name;

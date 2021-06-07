@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Books;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\PostResource;
-use App\Models\Book;
+use App\Models\Books\Book;
 
 class Books_api_controller extends Controller
 {
