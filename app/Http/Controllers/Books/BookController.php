@@ -40,18 +40,14 @@ class BookController extends Controller
      */
     public function store(CreateRequest $request)
     {
-       if ($request->hasFile('image')){
-            $image = $request->file('image');
-            $imageName = time().'.'.$image->extension();
-            $request->image->move(public_path('images'), $imageName);
-        }
-
-
         $books = new Book();
+       if ($request->hasFile('image')){
+            imagefunction($request,$books);
+        }
+        
         $books->name = $request->name;
         $books->auther_name = $request->auther_name;
         $books->price = $request->price;
-        $books->image = $imageName;
         $books->save();
         return back()->with('new_books','Books added');
     }
@@ -62,9 +58,8 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Book $book)
     {
-        $book = Book::find($id);
         return view('admin.details',compact('book'));
     }
 
@@ -74,10 +69,10 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Book $book)
     {
-        $books = Book::find($id);
-        return view("admin.edit_book",compact('books'));
+        // $books = Book::find($id);
+        return view("admin.edit_book",compact('book'));
     }
 
     /**
@@ -87,25 +82,22 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Book $book,Request $request)
     {
-        $books = Book::find($request->id);
+        
         $name = $request->name;
         $author_name = $request->auther_name;
         $price= $request->price;
+
         if($request->hasFile('image')){
-            $image = $request->file('image');
-            $imageName = time().'.'.$image->extension();
-            $request->image->move(public_path('images'), $imageName);
-            $books->image = $imageName;
-        }
 
+            imagefunction($request,$book);
 
-        
-        $books->name = $name;
-        $books->auther_name = $author_name;
-        $books->price = $price;
-        $books->save();
+        }   
+        $book->name = $name;
+        $book->auther_name = $author_name;
+        $book->price = $price;
+        $book->save();
         return back()->with('edit_books','Books edited');
     }
 
@@ -115,9 +107,8 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Book $book)
     {
-        $book = Book::find($id);
         unlink(public_path('images').'/'.$book->image);
         $book->delete();
         return back()->with('delete','Books deleted');

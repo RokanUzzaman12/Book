@@ -29,10 +29,10 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="/add-book">Add books</a>
+        <a class="nav-link" href="/books/create">Add books</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/all_books">All books list</a>
+        <a class="nav-link" href="/books">All books list</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>

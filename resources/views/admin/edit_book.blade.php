@@ -11,27 +11,28 @@
         {{Session::get('edit_books')}}
         </div>
     @endif
-        <form method = "POST" enctype = "multipart/form-data" action = "{{route('edit')}}" >
+        <form method = "POST" enctype = "multipart/form-data" action = "{{route('books.update',$book)}}" >
             @csrf
-            <input type="hidden" name = "id" value = "{{$books->id}}">
+            @method('PUT')
+            
             <div class="form-group">
                 <label for = "name">Name</label>
-                <input type="text" name = "name" class= "form-control" value = "{{$books->name}}">
+                <input type="text" name = "name" class= "form-control" value = "{{$book->name}}">
             </div>
             <div class="form-group">
                 <label for = "author">Auther Name</label>
-                <input type="text" name = "auther_name" class= "form-control" value = "{{$books->auther_name}}">
+                <input type="text" name = "auther_name" class= "form-control" value = "{{$book->auther_name}}">
             </div>
             <div class="form-group">
                 <label for = "price">Price</label>
-                <input type="number" name = "price" class= "form-control" value = "{{$books->price}}">
+                <input type="number" name = "price" class= "form-control" value = "{{$book->price}}">
             </div>
             <div class="form-group">
                 <label for = "image">Image</label>
                 
 
-                <input type="file" value = "{{$books->image}}"  class = "form-control" name = "image" onchange="loadFile(event)">
-                <img id="output" src = "{{asset('images')}}/{{$books->image}}" style="max-width:130px;margin-top:20px;"/>
+                <input type="file" value = "{{$book->image}}"  class = "form-control" name = "image" onchange="loadFile(event)">
+                <img id="output" src = "{{asset('images')}}/{{$book->image}}" style="max-width:130px;margin-top:20px;"/>
                 <script>
                 
                 var loadFile = function(event) {

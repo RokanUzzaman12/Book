@@ -11,7 +11,7 @@
         {{Session::get('new_books')}}
         </div>
     @endif
-        <form method = "POST" enctype = "multipart/form-data" action = "{{route('add')}}" >
+        <form method = "POST" enctype = "multipart/form-data" action = "{{route('books.store')}}" >
             @csrf
             <div class="form-group">
                 <label for = "name">Name</label>

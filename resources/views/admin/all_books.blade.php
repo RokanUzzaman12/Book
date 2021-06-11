@@ -29,9 +29,15 @@
                 <td>{{$book->price}}</td>
                 <td>  <img src = "{{asset('images')}}/{{$book->image}}" style="max-width:60px; height:50px"/> </td>
                 <td>
-                <a type = "button" class = "btn btn-info" href="/details/{{$book->id}}">Details</a>
-                <a type = "button" class = "btn btn-primary" href="/edit_book/{{$book->id}}">Edit</a>
-                <a type = "button" class = "btn btn-danger" href="/delete_book/{{$book->id}}">Delete</a>
+                <a type = "button" class = "btn btn-info" href="/books/{{$book->id}}">Details</a>
+                <a type = "button" class = "btn btn-primary" href="/books/{{$book->id}}/edit">Edit</a>
+                <form method = "POST" action ="{{route('books.destroy',$book)}}" style="display: inline-block">
+                @csrf
+                @method('DELETE')
+                <button type = "submit" onclick ="return confirm('Are you sure?')" class = "btn btn-danger" >Delete</button>
+                </form>
+                
+                
                 </td>
             </tr>
         @endforeach
